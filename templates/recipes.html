@@ -1,0 +1,8 @@
+{% extends 'base.html' %} {% block content %}
+
+
+    {% for recipe in recipes %}
+        <a href="{{url_for('show_recipe', recipe_id=recipe._id)}}"><img src="{{recipe.image_url}}"></img></a>
+    {% endfor %}
+
+{% endblock %}
