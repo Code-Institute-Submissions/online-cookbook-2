@@ -1,8 +1,9 @@
 {% extends 'base.html' %} {% block content %}
 
-
+<div class="fluid-container">
     {% for recipe in recipes %}
-        <a href="{{url_for('show_recipe', recipe_id=recipe._id)}}"><img src="{{recipe.image_url}}"></img></a>
+        <a href="{{url_for('show_recipe', recipe_id=recipe._id)}}"><img class="recipes-page-img" src="{{recipe.image_url}}"></img></a>
     {% endfor %}
+</div>
 
 {% endblock %}

@@ -1,4 +1,126 @@
-img {
-    width:31%;
+@import url('https://fonts.googleapis.com/css?family=Bitter:100,200,300,400,500,600,700|Exo:100,200,300,400,500,600,700');
+
+.recipes-page-img {
+    width: 33%;
     display: inline-block;
+}
+
+/* nav */
+
+.nav-wrapper {
+    background-color: #429ef4;
+}
+
+.brand-logo {
+    font-family: "bitter";
+    font-weight: 500;
+    padding-left: 10px;
+    margin-left: 20px;
+}
+
+.nav-text {
+    font-family: "bitter";
+    font-weight: 300;
+}
+
+/* show_recipe */
+
+.recipe-header {
+    background-color: #f04a69;
+}
+
+#recipe-logo-div {
+    padding: 0;
+}
+
+#recipe-logo {
+    width: 100%;
+    height: 100%;
+}
+
+.recipe-title {
+    text-align: center;
+    color: #fafafa;
+    margin-top: 80px;
+    font-family: 'Bitter';
+    font-weight: 500;
+}
+
+.subtitle-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+}
+
+.recipe-subtitle {
+    display: inline-block;
+    margin-top: 10px;
+    color: #fafafa;
+    font-family: 'Bitter';
+    font-weight: 200;
+}
+
+#recipe-author-text {
+    margin-right: 100px;
+}
+
+#recipe-serves-text {
+    margin-left: 100px;
+}
+
+.title-divider {
+    background-color: #fafafa;
+    border-width: 2px;
+    width: 20%;
+}
+
+.ingredients-container {
+    background-color: red;
+    height: 1000px;
+}
+
+.header-container {
+    margin: 0;
+}
+
+/* cuisines.html */
+
+
+.cuisine-container {
+    width: 60%;
+    margin-top: 20px;
+}
+
+.cuisine-row {
+    background-color: #faebd7;
+    border: 0.5px solid black;
+    margin: 0;
+    padding: 10px;
+}
+
+.cuisine-btn {
+    display: inline-block;
+}
+
+.cuisine-text {
+    font-family: "Bitter";
+    font-weight: 600;
+}
+
+.cuisines-title {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.add-cuisine-btn {
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+/* addcuisine.html */
+
+.add-cuisine-form {
+    margin-top: 10px;
 }

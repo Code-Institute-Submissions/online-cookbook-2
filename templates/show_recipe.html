@@ -1,6 +1,34 @@
 {% extends 'base.html' %} {% block content %}
+<div class="fluid-container">
+    <header>
+        <div class="row header-container">
+            <div class="col-3" id="recipe-logo-div">
+                <img src="{{recipe.image_url}}" id="recipe-logo"></img>
+            </div>
+            <div class="col-9 recipe-header">
+                <h1 class="recipe-title">{{recipe.recipe_name}}</h1>
+                <hr class="title-divider">
+                <div class="subtitle-container">
+                    <p class="recipe-subtitle" id="recipe-author-text">{{recipe.recipe_author.title()}}</p>
+                    <p class="recipe-subtitle" id="recipe-serves-text">serves: {{recipe.serves}}</p>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section>
+        <div class="row">
+            <div class="col-4 ingredients-container">
+                <h5>Ingredients</h5>
+                <ul>
+                    <li>{{recipe.ingredients_1_quantity}} {{recipe.ingredients_1_unit}} {{recipe.ingredients_1_name}}</li>
+                </ul>
+            </div>
+            <div class="col-8">
+            </div>
+        </div>
+    </section>
+</div>
 
 
-{{ recipe.recipe_name }}
 
 {% endblock %}

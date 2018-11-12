@@ -10,9 +10,23 @@
 
 <body>
 
-    <div class="container">
-        {% block content %} {% endblock %}
-    </div>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="{{url_for('get_recipes')}}" class="brand-logo">Live To Cook</a>
+            <a href="{{url_for('get_recipes')}}" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li class="nav-text"><a href="{{url_for('add_recipe')}}">Add a Recipe</a></li>
+                <li class="nav-text"><a href="{{url_for('get_cuisines')}}">Manage Cuisines</a></li>
+            </ul>
+            <ul class="sidenav" id="mobile-demo">
+                <li class="nav-text"><a href="{{url_for('add_recipe')}}">Add a Recipe</a></li>
+                <li class="nav-text"><a href="badges.html">Manage Cuisines</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    {% block content %} {% endblock %}
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script type="text/javascript">
@@ -26,7 +40,7 @@
             var ingredient_number = 4;
             $("#addButton").click(function() {
                 var newTextRow = $(document.createElement('div')).attr({ class: 'row', id: 'inputBoxDiv' + counter });
-                newTextRow.after().html("<div class='input-field col s6'><input name='ingredients_"+ingredient_number+"_name' id='ingredients_"+ingredient_number+"_name' type='text' class='validate'><label for='ingredients_"+ingredient_number+"_name'>Ingredient</label></div><div class='input-field col s3'><input id='ingredients_"+ingredient_number+"_quantity' name='ingredients_"+ingredient_number+"_quantity' type='text' class='validate'><label for='ingredients_"+ingredient_number+"_quantity'>Quantity</label></div><div class='input-field col s3'><input id='ingredients_"+ingredient_number+"_unit' name='ingredients_"+ingredient_number+"_unit' type='text' class='validate'><label for='ingredients_"+ingredient_number+"_unit'>Unit</label></div>");
+                newTextRow.after().html("<div class='input-field col s6'><input name='ingredients_" + ingredient_number + "_name' id='ingredients_" + ingredient_number + "_name' type='text' class='validate'><label for='ingredients_" + ingredient_number + "_name'>Ingredient</label></div><div class='input-field col s3'><input id='ingredients_" + ingredient_number + "_quantity' name='ingredients_" + ingredient_number + "_quantity' type='text' class='validate'><label for='ingredients_" + ingredient_number + "_quantity'>Quantity</label></div><div class='input-field col s3'><input id='ingredients_" + ingredient_number + "_unit' name='ingredients_" + ingredient_number + "_unit' type='text' class='validate'><label for='ingredients_" + ingredient_number + "_unit'>Unit</label></div>");
                 newTextRow.appendTo("#TextBoxes");
                 counter++;
                 ingredient_number++;
@@ -43,7 +57,7 @@
             M.textareaAutoResize($('#steps,method'));
             $("#addMethod").click(function() {
                 var newMethodRow = $(document.createElement('div')).attr({ class: 'row', id: 'methodBoxDiv' + step_number });
-                newMethodRow.after().html("<div class='input-field col s12'><textarea id='steps_"+step_number+"_method' name='steps_"+step_number+"_method' class='materialize-textarea'></textarea><label for='steps_"+step_number+"_method'>Step " + step_number + ".</label></div>");
+                newMethodRow.after().html("<div class='input-field col s12'><textarea id='steps_" + step_number + "_method' name='steps_" + step_number + "_method' class='materialize-textarea'></textarea><label for='steps_" + step_number + "_method'>Step " + step_number + ".</label></div>");
                 newMethodRow.appendTo("#newMethodBoxes");
                 step_number++;
             });
@@ -56,6 +70,8 @@
                 step_number--;
             });
             $('select').formSelect();
+            $('.sidenav').sidenav();
+            $('.collapsible').collapsible();
         });
     </script>
 
