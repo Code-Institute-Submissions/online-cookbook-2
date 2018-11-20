@@ -10,25 +10,35 @@
 
 <body>
 
-    <nav>
-        <div class="nav-wrapper">
-            <a href="{{url_for('get_recipes')}}" class="brand-logo">Live To Cook</a>
-            <a href="{{url_for('get_recipes')}}" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li class="nav-text"><a href="{{url_for('add_recipe')}}">Add a Recipe</a></li>
-                <li class="nav-text"><a href="{{url_for('get_cuisines')}}">Manage Cuisines</a></li>
-            </ul>
-            <ul class="sidenav" id="mobile-demo">
-                <li class="nav-text"><a href="{{url_for('add_recipe')}}">Add a Recipe</a></li>
-                <li class="nav-text"><a href="badges.html">Manage Cuisines</a></li>
-            </ul>
-        </div>
-    </nav>
+<!-- Dropdown Structure -->
+<ul id="dropdown1" class="dropdown-content">
+    {% for cuisine in all_cuisines %}
+    <li><a href="{{ url_for('find_recipe_by_cuisine', cuisine_name=cuisine.name) }}">{{ cuisine.name.capitalize() }}</a></li>
+    {% endfor %}
+</ul>
+<nav>
+  <div class="nav-wrapper">
+    <a href="{{url_for('get_recipes')}}" class="brand-logo logo-text">Live To Cook</a>
+    <a href="{{url_for('get_recipes')}}" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    <ul class="right hide-on-med-and-down">
+      <li><a href="{{url_for('add_recipe')}}">Add a Recipe</a></li>
+      <li><a href="{{url_for('get_cuisines')}}">Manage Cuisines</a></li>
+      <!-- Dropdown Trigger -->
+      <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Recipes<i class="material-icons right">arrow_drop_down</i></a></li>
+    </ul>
+    <ul class="sidenav" id="mobile-demo">
+        <li class="nav-text"><a href="{{url_for('add_recipe')}}">Add a Recipe</a></li>
+        <li class="nav-text"><a href="{{url_for('get_cuisines')}}">Manage Cuisines</a></li>
+    </ul>
+  </div>
+</nav>
 
+   
     {% block content %} {% endblock %}
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
     <script type="text/javascript">
         function showfield(name) {
             if (name == 'Other') document.getElementById('div1').innerHTML = 'Other: <input type="text" name="other" />';
@@ -72,6 +82,7 @@
             $('select').formSelect();
             $('.sidenav').sidenav();
             $('.collapsible').collapsible();
+            $(".dropdown-trigger").dropdown();
         });
     </script>
 

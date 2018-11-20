@@ -1,0 +1,15 @@
+{% extends 'base.html' %} {% from "_render_field.html" import render_field %} {% block content %}
+
+<h1>Form here!</h1>
+<form method="POST" action="{{url_for('form')}}">
+    {{ form.csrf_token }}
+    {{ render_field(form.username) }}
+    {{ render_field(form.password) }}
+    {{ render_field(form.telephone_number) }}
+    {{ render_field(form.gender) }}
+
+<button class="btn waves-effect waves-light" type="submit" name="action">Submit</button>
+</form>
+
+
+{% endblock %}

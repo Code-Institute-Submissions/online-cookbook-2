@@ -1,8 +1,73 @@
 @import url('https://fonts.googleapis.com/css?family=Bitter:100,200,300,400,500,600,700|Exo:100,200,300,400,500,600,700');
 
+
+select {
+    display: block;
+}
+
+/* recipes */
+
+.logo-text:hover {
+    color: black;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: #302f2d;
+}
+
+.recipe-img-container:hover .overlay {
+    opacity: 0.8;
+}
+
+.text {
+    color: white;
+    font-size: 20px;
+    font-family: "Bitter";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
 .recipes-page-img {
-    width: 33%;
+    width: 100%;
     display: inline-block;
+    opacity: 1;
+}
+
+.recipes-page-img:hover {
+    opacity: 0;
+}
+
+.recipe-text {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+}
+
+.recipe-text:hover {
+    visibility: visible;
+}
+
+.recipe-img-container {
+    display: inline-block;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    /* !important used to override the 15px padding put in by Bootstrap */
 }
 
 /* nav */
@@ -86,7 +151,6 @@
 
 /* cuisines.html */
 
-
 .cuisine-container {
     width: 60%;
     margin-top: 20px;
@@ -123,4 +187,15 @@
 
 .add-cuisine-form {
     margin-top: 10px;
+}
+
+/* recipes by cuisine.html */
+
+.results-text {
+    text-align: center;
+    font-family: "Bitter";
+    font-weight: 400;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    margin-top: 5px;
 }
