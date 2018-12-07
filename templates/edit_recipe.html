@@ -1,0 +1,83 @@
+{% extends 'base.html' %}{% from "_render_field.html" import render_field %}{% block content %}
+
+<div class="container-fluid background">
+    <h1 class="edit-recipe-title">Edit Recipe</h1>
+    <form class="edit-recipe-form-container" method="POST" action="{{url_for('update_recipe', recipe_id=recipe._id)}}">
+        {{ form.csrf_token }} {{ form.recipe_name.label}} {{ form.recipe_name(value=recipe.recipe_name.title()) }}
+        <div class="row">
+            <h4>Ingredients</h4>
+        </div>
+
+        {% for ingredient, number in ingredients %}
+
+        <!-- Done to stop name/number clashes with the original numbers -->
+        <div class="ingredients-inputs">
+            <div class="row ingredient-row">
+                <div class="input-field col-4">
+                    <input id="ingredients_{{number}}_name" name="ingredients_{{number}}_name" type="text" value="{{ingredient[0][1]}}" class="validate">
+                    <label for="ingredients_{{j}}_name">Ingredient</label>
+                </div>
+                <div class="input-field col-4">
+                    <input id="ingredients_{{number}}_quantity" name="ingredients_{{number}}_quantity" type="text" value="{{ingredient[1][1]}}" class="validate">
+                    <label for="ingredients_{{j}}_quantity">Quantity</label>
+                </div>
+                <div class="input-field col-3">
+                    <input id="ingredients_{{number}}_unit" name="ingredients_{{number}}_unit" type="text" value="{{ingredient[2][1]}}" class="validate">
+                    <label for="ingredients_{{number}}_unit">Unit</label>
+                </div>
+                <div class="col-1">
+                    <button type="button" class="btn delete-btn"><i class="fa fa-trash"></i></button>
+                </div>
+            </div>
+            {% endfor %}
+            
+            <div id="TextBoxesEdit"></div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <button type="button" class="btn btn-primary" id="addButtonEdit">Add More</button>
+            </div>
+            <div class="col-6">
+                <button type="button" class="btn btn-danger" id="removeButtonEdit">Remove New Row</button>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <h4>Method</h4>
+        </div>
+        {% for x, y in zipped_list2 %}
+
+        <div class="row steps-row">
+            <div class="input-field col-11">
+                <textarea id="steps_1_method" name="steps_method_{{y}}" class="materialize-textarea">{{x[0][1]}}</textarea>
+                <label for="steps_1_method">Step:</label>
+            </div>
+            <div class="col-1">
+                <button type="button" class="btn delete-btn2"><i class="fa fa-trash"></i></button>
+            </div>
+        </div>
+
+        {% endfor %}
+        <div id="newMethodBoxes"></div>
+        <div class="row">
+            <div class="col-6">
+                <button type="button" class="btn btn-primary" id="addMethod">Add Step</button>
+            </div>
+            <div class="col-6">
+                <button type="button" class="btn btn-danger" id="removeMethod">Remove Step</button>
+            </div>
+        </div>
+        {{ form.cuisine_name.label }} {{ form.cuisine_name(value=recipe.cuisine_name.title()) }}
+        <br> {{ form.recipe_author.label }} {{ form.recipe_author(value=recipe.recipe_author.title()) }}
+        {{ form.image_url.label }} {{ form.image_url(value=recipe.image_url) }}
+        {{ form.difficulty.label}} {{ form.difficulty(value=recipe.difficulty) }}
+        <br>
+        {{ form.cooking_time.label }} {{ form.cooking_time(value=recipe.cooking_time) }}
+        {{ form.total_time.label }} {{ form.total_time(value=recipe.total_time) }}
+        {{ form.serves.label }} {{ form.serves(value=recipe.serves) }}
+        <div class="button-holder">
+            <button class="btn waves-effect waves-light" type="submit" name="action">Edit Recipe</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

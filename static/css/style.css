@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Bitter:100,200,300,400,500,600,700|Exo:100,200,300,400,500,600,700');
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower:100,200,300,400,500,600,700|Exo:100,200,300,400,500,600,700');
 
 
 select {
@@ -28,6 +29,10 @@ select {
     opacity: 0.8;
 }
 
+.recipes-title{
+    text-decoration: underline;
+}
+
 .text {
     color: white;
     font-size: 20px;
@@ -41,6 +46,10 @@ select {
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     text-align: center;
+}
+
+.text-justify {
+    text-align: justify;
 }
 
 .recipes-page-img {
@@ -124,7 +133,14 @@ select {
     color: #fafafa;
     font-family: 'Bitter';
     font-weight: 200;
+    padding: 40px;
 }
+
+.fas {
+    padding: 5px;
+}
+
+/*
 
 #recipe-author-text {
     margin-right: 100px;
@@ -134,6 +150,8 @@ select {
     margin-left: 100px;
 }
 
+*/
+
 .title-divider {
     background-color: #fafafa;
     border-width: 2px;
@@ -141,12 +159,45 @@ select {
 }
 
 .ingredients-container {
-    background-color: red;
-    height: 1000px;
+    background-color: #ffff99;
+    padding-bottom: 30px;
+}
+
+.ingredients_list {
+    display: table;
+    margin: 0 auto;
+    padding-top: 10px;
+}
+
+.ingredients_list_text {
+    font-family: 'Indie Flower', sans-serif;
+    font-size: 18px;
+    font-weight: 600; 
 }
 
 .header-container {
     margin: 0;
+}
+
+.section-heading {
+    text-align: center;
+    margin-top: 10px;
+    font-family: "Bitter";
+}
+
+.method-text {
+    font-family: "Bitter";
+    font-size: 16px;
+}
+
+.method-number {
+    padding-right: 5px;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.method-container {
+    background-color: #ffeee6;
 }
 
 /* cuisines.html */
@@ -175,6 +226,8 @@ select {
 .cuisines-title {
     margin-top: 15px;
     text-align: center;
+    font-size: 32px;
+    text-decoration: underline;
 }
 
 .add-cuisine-btn {
@@ -187,6 +240,38 @@ select {
 
 .add-cuisine-form {
     margin-top: 10px;
+}
+
+/* Add Recipe */
+
+.add-recipe-title {
+    font-family: "Bitter";
+    text-align: center;
+    margin-top: 15px;
+    font-size: 32px;
+    text-decoration: underline;
+}
+
+.add-recipe-form-container {
+    padding: 25px;
+}
+
+.button-holder {
+    text-align: center;
+}
+
+/* Edit Recipe */
+
+.edit-recipe-title {
+    font-family: "Bitter";
+    text-align: center;
+    margin-top: 15px;
+    font-size: 32px;
+    text-decoration: underline;
+}
+
+.edit-recipe-form-container {
+    padding: 25px;
 }
 
 /* recipes by cuisine.html */

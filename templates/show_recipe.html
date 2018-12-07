@@ -6,27 +6,42 @@
                 <img src="{{recipe.image_url}}" id="recipe-logo"></img>
             </div>
             <div class="col-9 recipe-header">
-                <h1 class="recipe-title">{{recipe.recipe_name}}</h1>
+                <h1 class="recipe-title">{{recipe.recipe_name.title()}}</h1>
                 <hr class="title-divider">
                 <div class="subtitle-container">
-                    <p class="recipe-subtitle" id="recipe-author-text">{{recipe.recipe_author.title()}}</p>
-                    <p class="recipe-subtitle" id="recipe-serves-text">serves: {{recipe.serves}}</p>
+                    <p class="recipe-subtitle" id="recipe-author-text"><i class="fas fa-user"></i>{{recipe.recipe_author.title()}}</p>
+                    <p class="recipe-subtitle" id="recipe-serves-text"><i class="fas fa-utensils"></i>serves: {{recipe.serves}}</p>
+                    <p class="recipe-subtitle" id="recipe-total_time-text"><i class="fas fa-clock"></i>Cooking Time: {{recipe.total_time}} minutes</p>
                 </div>
             </div>
         </div>
     </header>
     <section>
         <div class="row">
-            <div class="col-4 ingredients-container">
-                <h5>Ingredients</h5>
-                <ul>
-                    <li>{{recipe.ingredients_1_quantity}} {{recipe.ingredients_1_unit}} {{recipe.ingredients_1_name}}</li>
+            <div class="col-3 ingredients-container">
+                <h5 class="section-heading">Ingredients</h5>
+                <ul class="ingredients_list">
+                    
+                    {% for ingredient in ingredients %}
+                    <li class="ingredients_list_text"> {{ ingredient[1][1] }} {{ ingredient[2][1] }} {{ ingredient[0][1] }}</li>
+                    {% endfor %}
+                    
                 </ul>
             </div>
-            <div class="col-8">
+            <div class="col-9 method-container">
+                <h5 class="section-heading">Method</h5>
+                <ul>
+                    {% for (i, step) in enumerate(steps, start=1) %}
+                    <li class="method-text"><span class="method-number">{{ i }}. </span> {{ step[0][1] }}</li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
     </section>
+    <footer>
+        <a href="{{ url_for('delete_recipe', recipe_id=recipe._id) }}" class="waves-effect waves-light btn btn_small red">Delete Recipe</a>
+        <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}" class="waves-effect waves-light btn btn_small blue">Edit Recipe</a>
+    </footer>
 </div>
 
 
