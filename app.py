@@ -2,11 +2,9 @@ import os
 from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-from wtforms import Form, BooleanField, StringField, validators, PasswordField, TextField, IntegerField, FieldList, FormField, TextAreaField, SelectField, SubmitField, FileField
-from wtforms.validators import InputRequired, DataRequired, URL, ValidationError, Email
+from wtforms import StringField, IntegerField, SelectField, SubmitField
+from wtforms.validators import InputRequired, URL, ValidationError
 from flask_wtf import FlaskForm
-from random import randint
-
 
 app = Flask(__name__)
 app.config["MONGO_DBNAME"] = 'online_cookbook'
@@ -16,21 +14,22 @@ app.config["SECRET_KEY"] = 'thisisasecret'
 
 mongo = PyMongo(app)
 
-# WTForms configuration
 
+# WTForms configuration
 def is_valid_url(form, field):
     if "www." not in field.data:
         raise ValidationError('Must contain a valid URL')
 
+
 class AddRecipe(FlaskForm):
     recipe_name = StringField('Recipe Name', validators=[InputRequired()])
     recipe_author = StringField('Recipe Author', validators=[InputRequired()])
-    image_url = StringField("Image URL for the recipe - <a href='https://www.quora.com/How-do-I-make-a-URL-for-my-image'> How to create URL for local image</a>", 
+    image_url = StringField("Image URL for the recipe - <a href='https://www.quora.com/How-do-I-make-a-URL-for-my-image'> How to create URL for local image</a>",
                             validators=[URL()])
     serves = StringField('Serves', validators=[InputRequired()])
     cuisine_name = SelectField('Cuisine:', validators=[InputRequired()])
     difficulty = SelectField('How difficult is this recipe?', choices=
-                             [('easy', 'Easy'), ('medium', 'Medium'), 
+                             [('easy', 'Easy'),('medium', 'Medium'),
                               ('hard', 'Hard')],
                                validators=[InputRequired()])
     cooking_time = SelectField('What category of cooking time is the recipe?',

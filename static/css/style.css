@@ -137,21 +137,10 @@ select {
     padding: 40px;
 }
 
-.fas {
+.show-recipe-icon, .recipes-page-icons {
     padding: 5px;
 }
 
-/*
-
-#recipe-author-text {
-    margin-right: 100px;
-}
-
-#recipe-serves-text {
-    margin-left: 100px;
-}
-
-*/
 
 .title-divider {
     background-color: #fafafa;
@@ -241,6 +230,18 @@ select {
 
 .add-cuisine-form {
     margin-top: 10px;
+}
+
+.addcuisine-title {
+    font-family: "Bitter";
+    text-align: center;
+    margin-top: 15px;
+    font-size: 32px;
+    text-decoration: underline;
+}
+
+.cuisines-form-container{
+    padding: 15px;
 }
 
 /* Add Recipe */
