@@ -50,6 +50,7 @@ select {
 
 .text-justify {
     text-align: justify;
+    margin-left: 20px;
 }
 
 .recipes-page-img {
@@ -274,7 +275,7 @@ select {
     padding: 25px;
 }
 
-/* recipes by cuisine.html */
+/* recipes filter pages */
 
 .results-text {
     text-align: center;
@@ -282,5 +283,23 @@ select {
     font-weight: 400;
     padding-bottom: 0;
     margin-bottom: 0;
+    margin-top: 15px;
+}
+
+/* modal style */
+
+.filter-option {
+    display: inline-block;
+    color: black;
+    font-family: "Bitter";
+    padding: 5px;
+    text-align: justify;
+}
+
+.modal-footer {
     margin-top: 5px;
+}
+
+.modal-trigger {
+    margin-right: 10px;
 }

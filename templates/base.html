@@ -10,60 +10,79 @@
 </head>
 
 <body>
-<nav>
-<!-- Dropdown Structure -->
-<ul id="dropdown1" class="dropdown-content">
-    {% for cuisine in all_cuisines %}
-    <li><a href="{{ url_for('find_recipe_by_cuisine', cuisine_name=cuisine.name) }}">{{ cuisine.name.capitalize() }}</a></li>
-    {% endfor %}
-</ul>
-<ul id="dropdown2" class="dropdown-content">
-    <li><a href="{{ url_for('search_recipe_by_difficulty', difficulty='easy') }}">Easy</a></li>
-    <li><a href="{{ url_for('search_recipe_by_difficulty', difficulty='medium') }}">Medium</a></li>
-    <li><a href="{{ url_for('search_recipe_by_difficulty', difficulty='hard') }}">Hard</a></li>
-</ul>
-<ul id="dropdown3" class="dropdown-content">
-    <li><a href="{{ url_for('search_recipe_by_time', cooking_time='0-30') }}">0-30 minutes</a></li>
-    <li><a href="{{ url_for('search_recipe_by_time', cooking_time='30-60') }}">30-60 minutes</a></li>
-    <li><a href="{{ url_for('search_recipe_by_time', cooking_time='60-90') }}">60-90 minutes</a></li>
-    <li><a href="{{ url_for('search_recipe_by_time', cooking_time='90+') }}">90+ minutes</a></li>
-</ul>
-  <div class="nav-wrapper">
-    <a href="{{url_for('get_recipes')}}" class="brand-logo logo-text">Live To Cook</a>
-    <a href="{{url_for('get_recipes')}}" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-    <ul class="right hide-on-med-and-down">
-      <li><a href="{{url_for('add_recipe')}}">Add a Recipe</a></li>
-      <li><a href="{{url_for('get_cuisines')}}">Manage Cuisines</a></li>
-      <!-- Dropdown Trigger -->
-      <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Recipes By Cuisine<i class="material-icons right">arrow_drop_down</i></a></li>
-      <li><a class="dropdown-trigger" href="#!" data-target="dropdown2">Recipes By Difficulty<i class="material-icons right">arrow_drop_down</i></a></li>
-      <li><a class="dropdown-trigger" href="#!" data-target="dropdown3">Recipes By Cooking Time<i class="material-icons right">arrow_drop_down</i></a></li>
-    </ul>
-    <ul class="sidenav" id="mobile-demo">
-        <li class="nav-text"><a href="{{url_for('add_recipe')}}">Add a Recipe</a></li>
-        <li class="nav-text"><a href="{{url_for('get_cuisines')}}">Manage Cuisines</a></li>
-    </ul>
-  </div>
-</nav>
+    <nav>
 
-   
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <ul>
+                    <!-- Dropdown Trigger -->
+                    <div class="row">
+                        <li><a class="dropdown-trigger filter-option" href="#" data-target="dropdown1">Recipes By Cuisine<i class="material-icons right">arrow_drop_down</i></a></li>
+                    </div>
+                    <div class="row">
+                        <li><a class="dropdown-trigger filter-option" href="#" data-target="dropdown2">Recipes By Difficulty<i class="material-icons right">arrow_drop_down</i></a></li>
+                    </div>
+                    <div class="row">
+                        <li><a class="dropdown-trigger filter-option" href="#" data-target="dropdown3">Recipes By Cooking Time<i class="material-icons right">arrow_drop_down</i></a></li>
+                    </div>
+                    <div class="row">
+                        <li><a class="filter-option" href="{{url_for('sort_recipes_by_upvotes')}}">Sort by Upvotes</a></li>
+                    </div>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+            </div>
+        </div>
+        <!-- Dropdown Structure -->
+        <ul id="dropdown1" class="dropdown-content">
+            {% for cuisine in all_cuisines %}
+            <li><a href="{{ url_for('find_recipe_by_cuisine', cuisine_name=cuisine.name) }}">{{ cuisine.name.capitalize() }}</a></li>
+            {% endfor %}
+        </ul>
+        <ul id="dropdown2" class="dropdown-content">
+            <li><a href="{{ url_for('search_recipe_by_difficulty', difficulty='easy') }}">Easy</a></li>
+            <li><a href="{{ url_for('search_recipe_by_difficulty', difficulty='medium') }}">Medium</a></li>
+            <li><a href="{{ url_for('search_recipe_by_difficulty', difficulty='hard') }}">Hard</a></li>
+        </ul>
+        <ul id="dropdown3" class="dropdown-content">
+            <li><a href="{{ url_for('search_recipe_by_time', cooking_time='0-30') }}">0-30 minutes</a></li>
+            <li><a href="{{ url_for('search_recipe_by_time', cooking_time='30-60') }}">30-60 minutes</a></li>
+            <li><a href="{{ url_for('search_recipe_by_time', cooking_time='60-90') }}">60-90 minutes</a></li>
+            <li><a href="{{ url_for('search_recipe_by_time', cooking_time='90+') }}">90+ minutes</a></li>
+        </ul>
+        <div class="nav-wrapper">
+            <a href="{{url_for('get_recipes')}}" class="brand-logo logo-text">Live To Cook</a>
+            <a href="{{url_for('get_recipes')}}" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="{{url_for('add_recipe')}}">Add a Recipe</a></li>
+                <li><a href="{{url_for('get_cuisines')}}">Manage Cuisines</a></li>
+                <!-- Modal Trigger -->
+                <li><a class="filter-modal modal-trigger" href="#modal1">Filter Recipes</a></li>
+
+            </ul>
+            <ul class="sidenav" id="mobile-demo">
+                <li class="nav-text"><a href="{{url_for('add_recipe')}}">Add a Recipe</a></li>
+                <li class="nav-text"><a href="{{url_for('get_cuisines')}}">Manage Cuisines</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
     {% block content %} {% endblock %}
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
     <script type="text/javascript">
-        function showfield(name) {
-            if (name == 'Other') document.getElementById('div1').innerHTML = 'Other: <input type="text" name="other" />';
-            else document.getElementById('div1').innerHTML = '';
-        }
         $(document).ready(function() {
             var counter = 1;
             var step_number = 2;
             var ingredient_number = 2;
             $("#addButton").click(function() {
                 var newTextRow = $(document.createElement('div')).attr({ class: 'row', id: 'inputBoxDiv' + counter });
-                newTextRow.after().html("<div class='input-field col s6'><input name='ingredients_" + ingredient_number + "_name' id='ingredients_" + ingredient_number + "_name' type='text' class='validate'><label for='ingredients_" + ingredient_number + "_name'>Ingredient</label></div><div class='input-field col s3'><input id='ingredients_" + ingredient_number + "_quantity' name='ingredients_" + ingredient_number + "_quantity' type='text' class='validate'><label for='ingredients_" + ingredient_number + "_quantity'>Quantity</label></div><div class='input-field col s3'><input id='ingredients_" + ingredient_number + "_unit' name='ingredients_" + ingredient_number + "_unit' type='text' class='validate'><label for='ingredients_" + ingredient_number + "_unit'>Unit</label></div>");
+                newTextRow.after().html("<div class='input-field col s6'><input name='ingredients_" + ingredient_number + "_name' required id='ingredients_" + ingredient_number + "_name' type='text' class='validate'><label for='ingredients_" + ingredient_number + "_name'>Ingredient</label></div><div class='input-field col s3'><input required id='ingredients_" + ingredient_number + "_quantity' name='ingredients_" + ingredient_number + "_quantity' type='text' class='validate'><label for='ingredients_" + ingredient_number + "_quantity'>Quantity</label></div><div class='input-field col s3'><input required id='ingredients_" + ingredient_number + "_unit' name='ingredients_" + ingredient_number + "_unit' type='text' class='validate'><label for='ingredients_" + ingredient_number + "_unit'>Unit</label></div>");
                 newTextRow.appendTo("#TextBoxes");
                 counter++;
                 ingredient_number++;
@@ -80,7 +99,7 @@
             M.textareaAutoResize($('#steps,method'));
             $("#addMethod").click(function() {
                 var newMethodRow = $(document.createElement('div')).attr({ class: 'row', id: 'methodBoxDiv' + step_number });
-                newMethodRow.after().html("<div class='input-field col s12'><textarea id='steps_" + step_number + "_method' name='steps_" + step_number + "_method' class='materialize-textarea'></textarea><label for='steps_" + step_number + "_method'>Step.</label></div>");
+                newMethodRow.after().html("<div class='input-field col s12'><textarea id='steps_" + step_number + "_method' required name='steps_" + step_number + "_method' class='materialize-textarea'></textarea><label for='steps_" + step_number + "_method'>Step.</label></div>");
                 newMethodRow.appendTo("#newMethodBoxes");
                 step_number++;
             });
@@ -95,14 +114,14 @@
             var counter_2 = 1;
             var number_of_ingredients = $(".ingredients-inputs").find($("input"));
             var next_ingredient = number_of_ingredients.length / 3;
-             $("#addButtonEdit").click(function() {
+            $("#addButtonEdit").click(function() {
                 var newTextRowEdit = $(document.createElement('div')).attr({ class: 'row ingredient-row', id: 'inputBoxDiv' + counter_2 });
-                newTextRowEdit.after().html("<div class='input-field col-4'><input name='ingredients_" + next_ingredient + "_name' id='ingredients_" + next_ingredient + "_name' type='text' class='validate'><label for='ingredients_" + next_ingredient + "_name'>Ingredient</label></div><div class='input-field col-4'><input id='ingredients_" + next_ingredient + "_quantity' name='ingredients_" + next_ingredient + "_quantity' type='text' class='validate'><label for='ingredients_" + next_ingredient + "_quantity'>Quantity</label></div><div class='input-field col-4'><input id='ingredients_" + next_ingredient + "_unit' name='ingredients_" + next_ingredient + "_unit' type='text' class='validate'><label for='ingredients_" + next_ingredient + "_unit'>Unit</label></div>");
+                newTextRowEdit.after().html("<div class='input-field col-4'><input name='ingredients_" + next_ingredient + "_name' required id='ingredients_" + next_ingredient + "_name' type='text' class='validate'><label for='ingredients_" + next_ingredient + "_name'>Ingredient</label></div><div class='input-field col-4'><input required id='ingredients_" + next_ingredient + "_quantity' name='ingredients_" + next_ingredient + "_quantity' type='text' class='validate'><label for='ingredients_" + next_ingredient + "_quantity'>Quantity</label></div><div class='input-field col-4'><input id='ingredients_" + next_ingredient + "_unit' required name='ingredients_" + next_ingredient + "_unit' type='text' class='validate'><label for='ingredients_" + next_ingredient + "_unit'>Unit</label></div>");
                 newTextRowEdit.appendTo("#TextBoxesEdit");
                 counter_2++;
                 next_ingredient++;
-             });
-             $("#removeButtonEdit").click(function() {
+            });
+            $("#removeButtonEdit").click(function() {
                 if (counter_2 == 1) {
                     alert("No new rows added!");
                     return false;
@@ -111,22 +130,34 @@
                 counter_2--;
                 $("#inputBoxDiv" + counter_2).remove();
             });
-            $(".delete-btn").click(function(){
+            $(".delete-btn").click(function() {
                 $(this).closest(".ingredient-row").remove();
             });
-            $(".delete-btn2").click(function(){
+            $(".delete-btn2").click(function() {
                 $(this).closest(".steps-row").remove();
             });
             $('select').formSelect();
             $('.sidenav').sidenav();
             $('.collapsible').collapsible();
             $(".dropdown-trigger").dropdown();
-            
+            $('.modal').modal();
         });
+
+        function randomNumber() {
+            var randNo = Math.floor(Math.random() * 10000);
+            return randNo;
+        }
+
+        document.getElementById("upvotes").value = randomNumber();
+
+        function validateForm() {
+            var x = document.forms["addrecipe-form"]["image_url"].value;
+            if (x.toLowerCase().indexOf("www.")=== -1) {
+                alert("The Image URL provided must be a valid URL (contain 'www.'");
+                return false;
+            }
+        }
     </script>
-    
-
-
 </body>
 
 </html>

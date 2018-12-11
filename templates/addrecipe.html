@@ -2,7 +2,7 @@
 
 <div class="container-fluid background">
     <h1 class="add-recipe-title">Add a Recipe</h1>
-    <form class="add-recipe-form-container" method="POST" action="{{url_for('insert_recipe')}}">
+    <form name="addrecipe-form" class="add-recipe-form-container" method="POST" action="{{url_for('insert_recipe')}}" onsubmit="return validateForm()">
         {{ form.csrf_token }} 
         {{ render_field(form.recipe_name) }}
         <div class="row">
@@ -10,15 +10,15 @@
         </div>
         <div class="row">
             <div class="input-field col s6">
-                <input id="ingredients_1_name" name="ingredients_name_1" type="text" class="validate">
+                <input id="ingredients_1_name" name="ingredients_name_1" type="text" class="validate" required>
                 <label for="ingredients_1_name">Ingredient</label>
             </div>
             <div class="input-field col s3">
-                <input id="ingredients_1_quantity" name="ingredients_quantity_1" type="text" class="validate">
+                <input id="ingredients_1_quantity" name="ingredients_quantity_1" type="text" class="validate" required>
                 <label for="ingredients_1_quantity">Quantity</label>
             </div>
             <div class="input-field col s3">
-                <input id="ingredients_1_unit" name="ingredients_unit_1" type="text" class="validate">
+                <input id="ingredients_1_unit" name="ingredients_unit_1" type="text" class="validate" required>
                 <label for="ingredients_1_unit">Unit</label>
             </div>
         </div>
@@ -37,7 +37,7 @@
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <textarea id="steps_1_method" name="steps_method_1" class="materialize-textarea"></textarea>
+                <textarea id="steps_1_method" name="steps_method_1" class="materialize-textarea" required></textarea>
                 <label for="steps_1_method">Step 1.</label>
             </div>
         </div>
@@ -58,6 +58,7 @@
         {{render_field(form.cooking_time) }}
         {{ render_field(form.total_time) }}
         {{ render_field(form.serves) }}
+        <input type="hidden" id="upvotes" value="" name="upvotes">
         <div class="button-holder"><button class="btn waves-effect waves-light add-recipe-submit" type="submit" name="action">Add Recipe</button></div>
     </form>
 </div>

@@ -5,21 +5,24 @@
         {% for recipe in recipes %}
         <div class="col-4 no-gutters recipe-img-container">
             <a href="{{url_for('show_recipe', recipe_id=recipe._id)}}"><img class="recipes-page-img" src="{{recipe.image_url}}"></img>
-            <div class="overlay">
-                <div class="text"><span class="recipes-title">{{ recipe.recipe_name.title() }}</span> 
-                <br> 
-                <br>
-                <div class="text-justify">
-                <i class="fas fa-user"></i><i>{{ recipe.recipe_author.title() }}</i>
-                <br>
-                <i class="fas fa-flag"></i><i>{{ recipe.cuisine_name.title() }}</i>
-                <br>
-                <i class="fas fa-clock"></i><i>{{ recipe.total_time }} minutes </i>
-                <br> 
-                <i class="fas fa-level-up-alt"></i><i>{{ recipe.difficulty.title() }}</i>
+                <div class="overlay">
+                    <div class="text"><span class="recipes-title">{{ recipe.recipe_name.title() }}</span> 
+                    <br> 
+                    <br>
+                    <div class="text-justify">
+                    <i class="fas fa-user"></i><i>{{ recipe.recipe_author.title() }}</i>
+                    <br>
+                    <i class="fas fa-flag"></i><i>{{ recipe.cuisine_name.title() }}</i>
+                    <br>
+                    <i class="fas fa-clock"></i><i>{{ recipe.total_time }} minutes </i>
+                    <br> 
+                    <i class="fas fa-level-up-alt"></i><i>{{ recipe.difficulty.title() }}</i>
+                    <br> 
+                    <i class="fas fa-thumbs-up"></i><i>{{ recipe.upvotes }}</i>
+                    </div>
+                    </div>
                 </div>
-                </div>
-            </div></a>
+            </a>
         </div>
         {% endfor %}
     </div>

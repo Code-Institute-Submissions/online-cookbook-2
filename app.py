@@ -2,36 +2,31 @@ import os
 from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-from wtforms import Form, BooleanField, StringField, validators, PasswordField, TextField, IntegerField, FieldList, FormField, TextAreaField, SelectField, SubmitField
-from wtforms.validators import InputRequired, DataRequired
+from wtforms import Form, BooleanField, StringField, validators, PasswordField, TextField, IntegerField, FieldList, FormField, TextAreaField, SelectField, SubmitField, FileField
+from wtforms.validators import InputRequired, DataRequired, URL, ValidationError, Email
 from flask_wtf import FlaskForm
-from wtforms_dynamic_fields import WTFormsDynamicFields
-from multiprocessing import Value
+from random import randint
+
 
 app = Flask(__name__)
 app.config["MONGO_DBNAME"] = 'online_cookbook'
 app.config["MONGO_URI"] = 'mongodb://admin:lightbulb10@ds151523.mlab.com:51523/online_cookbook'
 app.config["SECRET_KEY"] = 'thisisasecret'
-counter = Value('i', 0)
+
 
 mongo = PyMongo(app)
 
 # WTForms configuration
 
-class Ingredients(FlaskForm):
-    ingredient_name = TextField('Ingredient Name', [validators.required()])
-    ingredient_quantity = TextField('Quantity', [validators.required()])
-    ingredient_unit = TextField('Unit', [validators.required()])
-
-class RecipeMethod(FlaskForm):
-    steps = TextAreaField('Step:', [validators.required()])
+def is_valid_url(form, field):
+    if "www." not in field.data:
+        raise ValidationError('Must contain a valid URL')
 
 class AddRecipe(FlaskForm):
     recipe_name = StringField('Recipe Name', validators=[InputRequired()])
-    ingredients = FieldList(FormField(Ingredients), min_entries=1)
-    steps = FieldList(FormField(RecipeMethod), min_entries=1)
     recipe_author = StringField('Recipe Author', validators=[InputRequired()])
-    image_url = StringField('Image URL', validators=[DataRequired()])
+    image_url = StringField("Image URL for the recipe - <a href='https://www.quora.com/How-do-I-make-a-URL-for-my-image'> How to create URL for local image</a>", 
+                            validators=[URL()])
     serves = StringField('Serves', validators=[InputRequired()])
     cuisine_name = SelectField('Cuisine:', validators=[InputRequired()])
     difficulty = SelectField('How difficult is this recipe?', choices=
@@ -73,6 +68,7 @@ def show_recipe(recipe_id):
     The next step puts the ingredients/steps into independent lists to be
     iterated through and displayed on the HTML page.
     """
+    
     recipe_id = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     list_of_results = recipe_id.items()
     
@@ -152,7 +148,12 @@ def delete_recipe(recipe_id):
 @app.route('/edit_recipe/<recipe_id>', methods=['GET', 'POST'])
 def edit_recipe(recipe_id):
     """
-    UNFINISHED
+    This view allows the user to make changes to recipes.
+    It uses the recipe_id to fill the form with the values already chosen in the
+    original creation of the recipe.
+    Uses the same method as add_recipe() to collate the ingredients and steps 
+    into independent lists. On submit, the update function is called.
+    
     """
     form = AddRecipe(request.form)
     form.cuisine_name.choices = [(cuisine['name'], cuisine['name'].capitalize())
@@ -177,7 +178,8 @@ def edit_recipe(recipe_id):
         counter += 1
         
     filter_for_2 = ''.join(['steps_'])
-    filter_list_2 = [tup for tup in list_of_results if filter_for_2 in ''.join(str(tup))]
+    filter_list_2 = [tup for tup in list_of_results if filter_for_2 
+                     in ''.join(str(tup))]
     sorted_list_2 = sorted(filter_list_2, key=lambda x: x[0])
     counter_2 = 0
     x = 0
@@ -204,10 +206,13 @@ def edit_recipe(recipe_id):
 @app.route('/update_recipe/<recipe_id>', methods=['GET', 'POST'])
 def update_recipe(recipe_id):
     """
-    UNFINISHED
+    This view takes the data input from the user from the edit_recipe form and
+    uses the MongoDB update() method to update changes to the recipe.
+    The user is then redirected to the recipe's page.
     """
     form = AddRecipe(request.form)
-    mongo.db.recipes.update({'_id': ObjectId(recipe_id)}, request.form.to_dict())
+    mongo.db.recipes.update({'_id': ObjectId(recipe_id)}, 
+                            request.form.to_dict())
     
     return redirect(url_for('show_recipe', recipe_id=recipe_id))
 
@@ -219,9 +224,10 @@ def find_recipe_by_cuisine(cuisine_name):
     The function searches each recipe for the particular cuisine_name and
     returns the recipes that match.
     It also returns a count of the recipes found as feedback to the user.
+    The recipes are returned in order of upvotes.
     """
     db_query = { 'cuisine_name': cuisine_name }
-    recipe_by_cuisine = mongo.db.recipes.find(db_query)
+    recipe_by_cuisine = mongo.db.recipes.find(db_query).sort([("upvotes", -1)])
     results_total = mongo.db.recipes.count(db_query)
     return render_template("recipe_by_cuisine.html", recipes=recipe_by_cuisine,
                            results_total=results_total)
@@ -230,7 +236,7 @@ def find_recipe_by_cuisine(cuisine_name):
 @app.route('/search_recipe/<difficulty>', methods=['GET', 'POST'])
 def search_recipe_by_difficulty(difficulty):
     db_query = { 'difficulty': difficulty }
-    recipe_by_difficulty = mongo.db.recipes.find(db_query)
+    recipe_by_difficulty = mongo.db.recipes.find(db_query).sort([("upvotes", -1)])
     results_total = mongo.db.recipes.count(db_query)
     return render_template("recipe_by_difficulty.html", 
                            recipes=recipe_by_difficulty, 
@@ -240,10 +246,19 @@ def search_recipe_by_difficulty(difficulty):
 @app.route('/look_for_recipe/<cooking_time>', methods=['GET', 'POST'])
 def search_recipe_by_time(cooking_time):
     db_query = { 'cooking_time': cooking_time }
-    recipe_by_time = mongo.db.recipes.find(db_query)
+    recipe_by_time = mongo.db.recipes.find(db_query).sort([("upvotes", -1)])
     results_total = mongo.db.recipes.count(db_query)
     return render_template("recipe_by_time.html", 
                            recipes=recipe_by_time, 
+                            results_total=results_total)
+                            
+
+@app.route('/sort_recipes_by_upvotes', methods=['GET', 'POST'])
+def sort_recipes_by_upvotes():
+    recipes_by_upvotes = mongo.db.recipes.find().sort([("upvotes", -1)])
+    results_total = mongo.db.recipes.count()
+    return render_template("recipes_by_upvotes.html",
+                           recipes=recipes_by_upvotes,
                             results_total=results_total)
     
 
@@ -324,6 +339,13 @@ def inject_cuisines():
     """
     all_cuisines = mongo.db.cuisines.find()
     return dict(all_cuisines=all_cuisines)
+    
+
+@app.route('/form/', methods=['GET', 'POST'])
+def test_form():
+    return render_template('form.html')
+    
+
 
 if __name__ == "__main__":
     app.run(host=os.environ.get('IP'),
