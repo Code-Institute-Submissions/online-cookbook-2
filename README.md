@@ -7,7 +7,7 @@ back-end functionality written in python.
 The project includes each function of CRUD, allowing a user to create, read,
 update and delete recipes that are upheld by persistent storage.
 
-# UX Design
+## UX Design
 
 My design was inspired by Pinterest and Tumblr, where images make up the
 majority of the page as opposed to text. This creates a user-friendly, more
@@ -36,7 +36,7 @@ as possible.
 To return to the home-page a user simply clicks the Logo (a common convention),
 I also added a home button alongside the logo to make this clearer.
 
-# Features
+## Features
 
 ### Add Recipe
 
@@ -82,7 +82,7 @@ queries the database for each different parameter and returns a list only
 including the requested parameter. The sort by number of upvotes uses the 
 sort() method to sort by the upvotes field.
 
-# Technologies Used
+## Technologies Used
 
 - Python 3.4.3
 - Flask (Python Microframework)
@@ -94,7 +94,7 @@ sort() method to sort by the upvotes field.
 - WTForms
 - Materialize
 
-# Testing
+## Testing
 
 ### Testing Add Recipe Form
 
@@ -131,6 +131,51 @@ occuring (such as fields going missing or name clashes causing issues)
 - Ensure that newly added cuisines become available on the add recipe form.
 - Make sure removing a cuisine that recipes have as their cuisine doesn't cause
 the website to crash.
+
+## Database Schema
+
+
+## Deployment
+
+## Deployment
+
+To Clone the project from github:
+
+```python
+$ git clone https://github.com/jstokes1994/online-cookbook.git
+```
+
+I recommend deploying the project in a virtual envioronment:
+
+```python
+$ cd directory-name
+$ python3 -m venv virtual-env-name
+```
+
+You will need to install the dependencies found in the requirements.txt file:
+
+```python
+$ pip3 install -r requirements.txt 
+```
+
+To run the project locally use:
+
+```python
+$ python3 run.py
+```
+
+You can also run the app through Heroku.
+
+The project was deployed to Heroku with config vars:
+
+- IP = 0.0.0.0
+- PORT = 5000
+
+https://riddlemethis-ci.herokuapp.com/
+
+There are no differences between the development and deployed versions.
+
+Note the project is written with Python3 and not Python2.
 
 
 To do: 
