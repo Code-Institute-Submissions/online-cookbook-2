@@ -131,3 +131,10 @@ occuring (such as fields going missing or name clashes causing issues)
 - Ensure that newly added cuisines become available on the add recipe form.
 - Make sure removing a cuisine that recipes have as their cuisine doesn't cause
 the website to crash.
+
+
+To do: 
+
+- More testing?
+- DB schema or lack of (use entirely unstructured data - lookup)
+- Deployment

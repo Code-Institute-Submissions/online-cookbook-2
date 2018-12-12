@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-from wtforms import StringField, IntegerField, SelectField, SubmitField
+from wtforms import StringField, IntegerField, SelectField, SubmitField, FileField
 from wtforms.validators import InputRequired, URL, ValidationError
 from flask_wtf import FlaskForm
 

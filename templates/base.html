@@ -151,12 +151,12 @@
         document.getElementById("upvotes").value = randomNumber();
 
         function validateForm() {
-            var x = document.forms["addrecipe-form"]["image_url"].value;
-            if (x.toLowerCase().indexOf("www.")=== -1) {
-                alert("The Image URL provided must be a valid URL (contain 'www.'");
-                return false;
-            }
-        }
+             var x = document.forms["addrecipe-form"]["image_url"].value;
+             if (x.toLowerCase().indexOf("www.")=== -1) {
+                 alert("The Image URL provided must be a valid URL (contain 'www.'");
+                 return false;
+             }
+         }
     </script>
 </body>
 
