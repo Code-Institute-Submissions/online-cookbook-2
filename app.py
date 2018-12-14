@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-from wtforms import StringField, IntegerField, SelectField, SubmitField, FileField
+from wtforms import StringField, IntegerField, SelectField, SubmitField
 from wtforms.validators import InputRequired, URL, ValidationError
 from flask_wtf import FlaskForm
 
@@ -31,15 +31,16 @@ class AddRecipe(FlaskForm):
     difficulty = SelectField('How difficult is this recipe?', choices=
                              [('easy', 'Easy'),('medium', 'Medium'),
                               ('hard', 'Hard')],
-                               validators=[InputRequired()])
+                              validators=[InputRequired()])
     cooking_time = SelectField('What category of cooking time is the recipe?',
-                                choices=[('0-30', '0-30 minutes'), ('30-60',
-                                '30-60 minutes'), ('60-90', '60-90 minutes'),
-                                ('90+', '90+ minutes')],
-                                 validators=[InputRequired()])
+                               choices=[('0-30', '0-30 minutes'), ('30-60',
+                               '30-60 minutes'), ('60-90', '60-90 minutes'),
+                               ('90+', '90+ minutes')],
+                               validators=[InputRequired()])
     total_time = IntegerField('How long will it take to cook in minutes?',
                                   validators=[InputRequired()])
     addrow = SubmitField('Add Row')
+
 
 class AddCuisineForm(FlaskForm):
     cuisine_name = StringField('Cuisine Name', validators=[InputRequired()])
@@ -53,7 +54,7 @@ def get_recipes():
     """
     all_recipes = mongo.db.recipes.find()
     return render_template("recipes.html", recipes=all_recipes)
-# Uses the find() function to return all of the recipes from the Mongo Collection
+#Uses the find() function to return all of the recipes from the Mongo Collection
 
 
 @app.route('/show_recipe/<recipe_id>/')
@@ -67,43 +68,43 @@ def show_recipe(recipe_id):
     The next step puts the ingredients/steps into independent lists to be
     iterated through and displayed on the HTML page.
     """
-    
+
     recipe_id = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     list_of_results = recipe_id.items()
-    
+
     filter_for = ''.join(['ingredients_'])
-    filter_list = [tup for tup 
+    filter_list = [tup for tup
                    in list_of_results if filter_for in ''.join(str(tup))]
     sorted_list = sorted(filter_list, key=lambda x: x[0])
     counter = 0
     a = 0
     b = 3
     ingredient_list = []
-    
+
     while counter < len(sorted_list)/3:
-        ingredient_list.append(sorted_list[slice(a,b)])
+        ingredient_list.append(sorted_list[slice(a, b)])
         a += 3
         b += 3
         counter += 1
-        
+
     filter_for_2 = ''.join(['steps_'])
-    filter_list_2 = [tup for tup in 
+    filter_list_2 = [tup for tup in
                      list_of_results if filter_for_2 in ''.join(str(tup))]
     sorted_list_2 = sorted(filter_list_2, key=lambda x: x[0])
     counter_2 = 0
     x = 0
     y = 1
     steps_list = []
-    
+
     while counter_2 < len(sorted_list_2):
-        steps_list.append(sorted_list_2[slice(x,y)])
+        steps_list.append(sorted_list_2[slice(x, y)])
         x += 1
-        y +=1
+        y += 1
         counter_2 += 1
-        
+
     return render_template("show_recipe.html", recipe=recipe_id,
-                            ingredients=ingredient_list, steps=steps_list, 
-                            enumerate=enumerate)
+                           ingredients=ingredient_list, steps=steps_list, 
+                           enumerate=enumerate)
 
 
 @app.route('/add_recipe/', methods=['GET', 'POST'])

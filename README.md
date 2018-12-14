@@ -38,7 +38,7 @@ I also added a home button alongside the logo to make this clearer.
 
 ## Features
 
-### Add Recipe
+#### Add Recipe
 
 A user is able to fill out a form and add a recipe to the database and therefore
 the site using MongoDBs insert-one() function.
@@ -47,7 +47,7 @@ The upvotes section is not seen on the form, a JavaScript function is used to
 produce a number between 0-10000 and applied to the recipe. This is to show how
 the functionality would work with a live website.
 
-### Edit Recipe
+#### Edit Recipe
 
 A user is able to make edits to recipes found on the website. MongoDB allocates
 each entry into a collection with an object ID and this is what is used to 
@@ -55,25 +55,25 @@ locate the individual recipe the user wants to edit and pre-fill the form
 for the user. After the user has made the necessary changes they submit the form
 and MongoDB's update() method to update the recipe.
 
-### Find Recipe
+#### Find Recipe
 
 Once a user selects a recipe from the home-page the MongoDB find() method uses
 the object ID to find the requested recipe. The user is then taken through 
 to the recipe's page where information from the database is presented in a 
 readable format to the user.
 
-### Delete Recipe
+#### Delete Recipe
 
 Each recipe has a 'Delete Recipe' button found at the bottom of the page. Once
 clicked it uses the remove() mongoDB method.
 
-### Manage Cuisines
+#### Manage Cuisines
 
 Each recipe has a cuisine, and the user is able to add, edit or delete cuisines
 found on the website. This is an entirely different collection that has a
 relationship with the recipes collection.
 
-### Filter Recipes
+#### Filter Recipes
 
 This functionality allows a user to narrow down the recipes and tailor the
 filter to their personal preferences. The user is able to filter by cuisine,
@@ -96,8 +96,9 @@ sort() method to sort by the upvotes field.
 
 ## Testing
 
-### Testing Add Recipe Form
+#### Testing Add Recipe Form
 
+- Test that a new added recipe immediately appears on the website's homepage
 - Go to form and try to submit empty fields and make sure WTForms 
 InputRequired() is working
 - Try to submit an empty ingredients list and make sure in-line validation is
@@ -115,7 +116,7 @@ correct choices
 steps is possible and make sure that all of the rows are unable to be deleted
 with feedback for user if they try.
 
-### Testing Edit Recipe Form
+#### Testing Edit Recipe Form
 
 - Make sure that the form is being populated with the correct data from the
 MongoDB document when editing recipe.
@@ -125,7 +126,7 @@ an issue with clashing names when submitted
 occuring (such as fields going missing or name clashes causing issues)
 - Test that the select fields are producing the correct options.
 
-### Other Tests
+#### Other Tests
 
 - Make sure the 'delete recipe' functionality is removing the correct document.
 - Ensure that newly added cuisines become available on the add recipe form.
@@ -134,8 +135,17 @@ the website to crash.
 
 ## Database Schema
 
+The database is structured with two collections, recipes and cuisines. The two
+collections are related as recipes contains a 'cuisine name' key that
+corresponds the cuisine documents.
 
-## Deployment
+The recipes document itself contains unstuctured data. With key/value pairs
+that make up a description of the recipe. The ingredient name, quantity and
+value all have the same number within the key, and they are grouped through the
+use of sorting by number and sliced for data representation.
+
+An example of a recipe document can be found in static/images/doc_example.png
+
 
 ## Deployment
 
@@ -171,15 +181,9 @@ The project was deployed to Heroku with config vars:
 - IP = 0.0.0.0
 - PORT = 5000
 
-https://riddlemethis-ci.herokuapp.com/
+https://online-cookbook-js.herokuapp.com/
 
 There are no differences between the development and deployed versions.
 
 Note the project is written with Python3 and not Python2.
 
-
-To do: 
-
-- More testing?
-- DB schema or lack of (use entirely unstructured data - lookup)
-- Deployment
