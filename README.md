@@ -132,6 +132,8 @@ occuring (such as fields going missing or name clashes causing issues)
 - Ensure that newly added cuisines become available on the add recipe form.
 - Make sure removing a cuisine that recipes have as their cuisine doesn't cause
 the website to crash.
+- Test responsiveness of each page on different screen sizes and ensure all
+elements stay readable.
 
 ## Database Schema
 
